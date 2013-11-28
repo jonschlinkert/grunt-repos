@@ -27,6 +27,7 @@ module.exports = function(grunt) {
 
     var options = this.options({
       append: '',
+      filterBy: 'name',
       sortBy: 'name',
       sortOrder: 'asc',
       host: 'api.github.com',
@@ -47,8 +48,8 @@ module.exports = function(grunt) {
       options.append = '?client_id=' + id + '&client_secret=' + secret;
     }
 
-    options.whitelist  = options.whitelist  || [];
-    options.blacklist  = options.blacklist  || [];
+    options.include  = options.include  || [];
+    options.exclude  = options.exclude  || [];
     options.namespace  = options.namespace  || 'repos';
 
     /**
@@ -94,8 +95,8 @@ module.exports = function(grunt) {
 
             Object.keys(json).map(function (key) {
               var repo = json[key];
-              if(whitelisted(options.whitelist, repo, 'name')) {
-                if(notBlacklisted(options.blacklist, repo, 'name')) {
+              if(included(options.include, repo, options.filterBy)) {
+                if(notExcluded(options.exclude, repo, options.filterBy)) {
                   repo.fullname = repo.full_name;
                   repo.url      = repo.html_url;
                   repo.download = repo.html_url + '/archive/master.zip';
@@ -114,7 +115,7 @@ module.exports = function(grunt) {
             }
 
             grunt.verbose.ok('repos:'.yellow, JSON.stringify(reposObj, null, 2));
-            grunt.log.ok('Saved to:'.green, fp.dest);
+            grunt.log.ok('Repo list saved to:'.green, fp.dest);
 
             grunt.file.write(fp.dest, JSON.stringify(reposObj, null, 2));
             callback(null);
@@ -131,7 +132,7 @@ module.exports = function(grunt) {
     });
   });
 
-  var whitelisted = function (keywords, obj, prop) {
+  var included = function (keywords, obj, prop) {
     keywords = Array.isArray(keywords) ? keywords : [keywords];
     keywords = (keywords.length > 0) ? keywords.join('|') : '.*';
     var re = new RegExp('(?:' + keywords + ')', 'g');
@@ -142,7 +143,7 @@ module.exports = function(grunt) {
     }
   };
 
-  var notBlacklisted = function (keywords, obj, prop) {
+  var notExcluded = function (keywords, obj, prop) {
     keywords = Array.isArray(keywords) ? keywords : [keywords];
     if(keywords.length > 0) {
       keywords = keywords.join('|');

@@ -19,6 +19,8 @@ grunt.loadNpmTasks('grunt-repos');
 
 If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
 
+
+
 ## The "repos" task
 
 ### Overview
@@ -37,52 +39,47 @@ grunt.initConfig({
 })
 ```
 
+
 ### Options
-
-#### options.separator
+### path
 Type: `String`
-Default value: `',  '`
+Default: `/orgs/assemble/`
 
-A string value that is used to do something with whatever.
+List repositories for the specified org.
 
-#### options.punctuation
+### filterBy
 Type: `String`
-Default value: `'.'`
+Default: `name`
 
-A string value that is used to do something else with whatever else.
+The property to use to filter the collection. This option works in conjunction with `options.include` and `options.exclude`.
+
+### exclude
+Type: `String|Array`
+Default: `undefined`
+
+Keywords to use for excluding repos from the returned array. If the property defined using `filterBy` contains any values with excluded keywords, the repo will be omitted from the list.
+
+### include
+Type: `String|Array`
+Default: `undefined`
+
+Keywords to use for whitelisting repos in the returned array. Unless excluded, if the property defined using `filterBy` contains any values with these keywords, the repo will be included in the list.
+
+### sortBy
+Type: `String`
+Default: `name`
+
+The property by which to sort the collection.
+
+### sortOrder
+Type: `String`
+Default: `asc`
+
+The order in which to sort the collection.
+
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  repos: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123']
-    }
-  }
-})
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  repos: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123']
-    }
-  }
-})
-```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][].

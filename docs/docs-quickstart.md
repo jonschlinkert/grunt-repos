@@ -12,6 +12,4 @@ Once that's done, add this line to your project's Gruntfile:
 grunt.loadNpmTasks('{%= name %}');
 ```
 
-If the plugin has been installed correctly, run `grunt readme` at the command line. If the plugin has been installed properly, you should see a success message.
-
-_**That's it!** If you are happy with the defaults, **no additional Gruntfile configuration is required**._
+If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.

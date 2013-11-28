@@ -30,30 +30,30 @@ module.exports = function(grunt) {
           'test/actual/namespaced.json': ['repos?page=1&per_page=100']
         }
       },
-      whitelisted: {
+      included: {
         options: {
           path: '/orgs/assemble/',
-          whitelist: ['contrib', 'boilerplate'],
+          include: ['contrib', 'boilerplate'],
         },
         files: {
-          'test/actual/whitelisted.json': ['repos?page=1&per_page=100']
+          'test/actual/included.json': ['repos?page=1&per_page=100']
         }
       },
-      blacklisted: {
+      excluded: {
         options: {
           path: '/orgs/assemble/',
-          blacklist: ['contrib', 'boilerplate'],
+          exclude: ['contrib', 'boilerplate'],
         },
         files: {
-          'test/actual/blacklisted.json': ['repos?page=1&per_page=100']
+          'test/actual/excluded.json': ['repos?page=1&per_page=100']
         }
       },
       multiple_opts: {
         options: {
           path: '/orgs/assemble/',
           namespace: 'foo',
-          whitelist: ['contrib', 'boilerplate'],
-          blacklist: ['rss', 'toc'],
+          include: ['contrib', 'boilerplate'],
+          exclude: ['rss', 'toc'],
         },
         files: {
           'test/actual/multiple_opts.json': ['repos?page=1&per_page=100']

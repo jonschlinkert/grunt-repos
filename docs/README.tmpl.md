@@ -3,86 +3,18 @@
 > {%= description %}
 
 ## Getting Started
-_If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
-
-From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
-
-```bash
-npm install {%= name %} --save-dev
-```
-
-Once that's done, add this line to your project's Gruntfile:
-
-```js
-grunt.loadNpmTasks('{%= name %}');
-```
-
-If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
+{%= _.doc('docs-quickstart.md') %}
 
 ## The "{%= shortname %}" task
 
 ### Overview
-In your project's Gruntfile, add a section named `{%= shortname %}` to the data object passed into `grunt.initConfig()`.
-
-```js
-grunt.initConfig({
-  {%= shortname %}: {
-    options: {
-      // Task-specific options go here.
-    },
-    target: {
-      // Target-specific file lists and/or options go here.
-    }
-  }
-})
-```
+{%= _.doc('docs-overview.md') %}
 
 ### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+{%= _.doc('docs-options.md') %}
 
 ### Usage Examples
-
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  {%= shortname %}: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123']
-    }
-  }
-})
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  {%= shortname %}: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123']
-    }
-  }
-})
-```
+{%= _.doc('docs-examples.md') %}
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][].

@@ -165,7 +165,9 @@ Returns:
 
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][].
+Find a bug? Have a feature request? Please [create an Issue](https://github.com/assemble/grunt-repos/issues). Pull requests are also encouraged.
+If you find this project useful, please consider "starring" it to show your support! Thanks!
+
 
 ## Authors
 
@@ -178,6 +180,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 + [github/doowb](https://github.com/doowb)
 + [twitter/doowb](http://twitter.com/jonschlinkert)
+
 
 ## License
 Copyright (c) 2013 Jon Schlinkert, contributors.

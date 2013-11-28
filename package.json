@@ -1,18 +1,18 @@
 {
   "name": "grunt-repos",
   "description": "Grunt task to download a list of repos from GitHub's API",
-  "version": "0.1.1",
-  "homepage": "https://github.com/jonschlinkert/grunt-repos",
+  "version": "0.1.2",
+  "homepage": "https://github.com/assemble/grunt-repos",
   "author": {
     "name": "Jon Schlinkert",
     "url": "https://github.com/jonschlinkert"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonschlinkert/grunt-repos.git"
+    "url": "https://github.com/assemble/grunt-repos.git"
   },
   "bugs": {
-    "url": "https://github.com/"
+    "url": "https://github.com/assemble/grunt-repos/issues"
   },
   "licenses": [
     {
@@ -28,7 +28,7 @@
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.7.2",
-    "grunt-readme": "~0.3.5"
+    "grunt-readme": "~0.4.0"
   },
   "keywords": [
     "assemble",

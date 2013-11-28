@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       sortOrder: 'asc',
       host: 'api.github.com',
       method: 'GET',
-      path: '/orgs/assemble/',
+      username: 'assemble',
       headers: {'User-Agent': 'grunt-repos'}
     });
 
@@ -42,15 +42,22 @@ module.exports = function(grunt) {
 
     // If CLIENT_ID and CLIENT_SECRET are variables on process.env,
     // use then to append the path with auth information
-    if(options.append.length > 0 && oauth) {
+    if(options.append.length === 0 && oauth) {
       options.append = '?access_token=' + oauth;
-    } else if(options.append.length > 0 && id && secret) {
+    } else if(options.append.length === 0 && id && secret) {
       options.append = '?client_id=' + id + '&client_secret=' + secret;
     }
 
-    options.include  = options.include  || [];
-    options.exclude  = options.exclude  || [];
-    options.namespace  = options.namespace  || 'repos';
+    // Include or exclude repos based on the keywords defined.
+    options.include   = options.include || [];
+    options.exclude   = options.exclude || [];
+
+    // Add the repos to the specified property
+    if(options.namespace === false) {
+      delete options.namespace;
+    } else {
+      options.namespace = options.namespace || 'repos';
+    }
 
     /**
      * Accepts two objects (a, b),
@@ -78,8 +85,11 @@ module.exports = function(grunt) {
     async.forEach(this.files, function(fp, cb) {
       async.forEach(fp.orig.src, function (src, callback) {
 
-        var srcPath = src || 'repos?page=1&per_page=100';
-        options.path = String(options.path + src + options.append);
+        var srcPath     = src || 'repos?page=1&per_page=100';
+        var defaultPath = String('/orgs/' + options.username + '/' + srcPath + options.append);
+
+        options.path = options.path || defaultPath;
+        grunt.verbose.writeln('options.path', options.path);
 
         var request = https.get(options, function (response) {
           grunt.verbose.writeln('response:'.yellow, response);
@@ -116,6 +126,9 @@ module.exports = function(grunt) {
 
             grunt.verbose.ok('repos:'.yellow, JSON.stringify(reposObj, null, 2));
             grunt.log.ok('Repo list saved to:'.green, fp.dest);
+
+            var dir = path.dirname(fp.dest);
+            var base = path.basename(fp.dest);
 
             grunt.file.write(fp.dest, JSON.stringify(reposObj, null, 2));
             callback(null);

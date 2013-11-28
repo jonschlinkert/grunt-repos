@@ -41,53 +41,131 @@ grunt.initConfig({
 
 
 ### Options
-### path
+#### username
+Type: `String`
+Default: `assemble`
+
+List repositories for the specified org. Using `src`, you must also pass an HTTP query string as a parameter, e.g. `repos?page=1&per_page=100`. This is done the way to keep the task light and flexible. (See the [Gruntfile](./Gruntfile.js) for examples).
+
+#### path
 Type: `String`
 Default: `/orgs/assemble/`
 
-List repositories for the specified org.
+If you don't like how the task constructs the path by default, a custom path may be defined. Any custom parameters may be specified as segments in the path or passed as an HTTP query string parameter in the `src`.
 
-### filterBy
+#### filterBy
 Type: `String`
 Default: `name`
 
 The property to use to filter the collection. This option works in conjunction with `options.include` and `options.exclude`.
 
-### exclude
+#### exclude
 Type: `String|Array`
 Default: `undefined`
 
 Keywords to use for excluding repos from the returned array. If the property defined using `filterBy` contains any values with excluded keywords, the repo will be omitted from the list.
 
-### include
+#### include
 Type: `String|Array`
 Default: `undefined`
 
 Keywords to use for whitelisting repos in the returned array. Unless excluded, if the property defined using `filterBy` contains any values with these keywords, the repo will be included in the list.
 
-### sortBy
+#### sortBy
 Type: `String`
 Default: `name`
 
 The property by which to sort the collection.
 
-### sortOrder
+#### sortOrder
 Type: `String`
 Default: `asc`
 
 The order in which to sort the collection.
 
+#### namespace
+Type: `String`
+Default: `"repos": []`
+
+Add the list of repos to an array with the given property name. If left undefined, `"repos": []` will be used. Specify `false` if you don't want to add the array to a property.
+
 
 ### Usage Examples
+### namespaced list
+Add the list of repos to an array with the given property name.
+
+```js
+grunt.initConfig({
+  repos: {
+    options: {
+      path: '/orgs/assemble/',
+      namespace: 'assemble'
+    },
+    files: {
+      'test/fixtures/data/helpers.json': ['repos?page=1&per_page=100']
+    }
+  }
+});
+```
+Returns:
+
+```json
+{
+  "assemble": [
+    {
+      "id": 5916767,
+      "name": "assemble",
+      "full_name": "assemble/assemble",
+      "owner": {
+        "login": "assemble",
+        "id": 2645080,
+        ...
+      }
+    }
+  ]
+}
+```
+
+### no namespace
+
+Or just return the array of repos.
+
+```js
+grunt.initConfig({
+  repos: {
+    no_namespace: {
+      options: {
+        path: '/orgs/assemble/',
+        namespace: false,
+      },
+      files: {
+        'test/actual/no_namespace.json': ['repos?page=1&per_page=100']
+      }
+    }
+  }
+});
+```
+
+Returns:
+
+```json
+[
+  {
+    "id": 5916767,
+    "name": "assemble",
+    "full_name": "assemble/assemble",
+    "owner": {
+      "login": "assemble",
+      "id": 2645080,
+      ...
+    }
+  }
+]
+```
 
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt][].
-
-## Release History
-
-_(Nothing yet)_
-
 
 ## Authors
 

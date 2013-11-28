@@ -23,16 +23,25 @@ module.exports = function(grunt) {
     repos: {
       namespaced: {
         options: {
-          path: '/orgs/assemble/',
+          username: 'assemble',
           namespace: 'foo'
         },
         files: {
           'test/actual/namespaced.json': ['repos?page=1&per_page=100']
         }
       },
+      no_namespace: {
+        options: {
+          username: 'assemble',
+          namespace: false
+        },
+        files: {
+          'test/actual/no_namespace.json': ['repos?page=1&per_page=100']
+        }
+      },
       included: {
         options: {
-          path: '/orgs/assemble/',
+          username: 'assemble',
           include: ['contrib', 'boilerplate'],
         },
         files: {
@@ -41,7 +50,7 @@ module.exports = function(grunt) {
       },
       excluded: {
         options: {
-          path: '/orgs/assemble/',
+          username: 'assemble',
           exclude: ['contrib', 'boilerplate'],
         },
         files: {
@@ -50,7 +59,7 @@ module.exports = function(grunt) {
       },
       multiple_opts: {
         options: {
-          path: '/orgs/assemble/',
+          username: 'assemble',
           namespace: 'foo',
           include: ['contrib', 'boilerplate'],
           exclude: ['rss', 'toc'],
@@ -70,5 +79,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-readme');
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'repos']);
+  grunt.registerTask('default', ['jshint', 'readme']);
 };

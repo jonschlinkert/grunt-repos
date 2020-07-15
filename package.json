@@ -23,7 +23,7 @@
   "main": "tasks/repos.js",
   "dependencies": {
     "async": "~0.2.9",
-    "lodash": "~2.4.0"
+    "lodash": "~4.17.19"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
